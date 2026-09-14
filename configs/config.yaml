@@ -1,0 +1,42 @@
+# RAG 文档智能问答系统配置
+# 密钥（DEEPSEEK_API_KEY）请配置在 .env 文件中，不要写在这里。
+
+llm:
+  model: deepseek-chat             # DeepSeek 对话模型
+  base_url: https://api.deepseek.com
+  temperature: 0.3
+  max_tokens: 2048
+
+embedding:
+  model: BAAI/bge-small-zh-v1.5    # BGE 中文嵌入模型
+  device: cpu                      # cpu / cuda
+  normalize: true
+  # BGE v1.x 检索时需加 query 指令前缀；换用 bge-m3 等 v2 模型时留空即可
+  query_instruction: "为这个句子生成表示以用于检索相关文章："
+
+reranker:
+  model: BAAI/bge-reranker-base    # BGE 重排序模型
+  device: cpu
+
+chunk:
+  chunk_size: 500                  # 递归字符切分块大小
+  chunk_overlap: 200               # 字符重叠窗口（按需求固定为 200）
+
+retrieval:
+  vector_top_k: 20                 # 向量召回候选数
+  bm25_top_k: 20                   # 关键词召回候选数
+  rrf_k: 60                        # RRF 融合平滑参数
+  rerank_top_k: 10                 # 送入重排序的候选数
+  final_top_k: 5                   # 最终喂给 LLM 的文档片段数
+
+memory:
+  max_turns: 5                     # 保留最近 N 轮对话历史
+
+paths:
+  persist_dir: data/chroma         # Chroma 向量库持久化目录
+  bm25_index: data/bm25_index.pkl  # BM25 索引文件
+  log_dir: logs
+
+server:
+  host: 127.0.0.1
+  port: 7860
