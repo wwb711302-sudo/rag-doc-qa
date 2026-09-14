@@ -13,7 +13,6 @@ authors = [{ name = "Your Name", email = "you@example.com" }]
 keywords = ["rag", "llm", "langchain", "chroma", "bge", "deepseek", "gradio", "question-answering"]
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
